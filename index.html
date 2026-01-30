@@ -8,37 +8,11 @@
     <!-- SEO Meta Tags -->
     <title>AURA | פתרונות דיגיטליים מתקדמים לעסקים</title>
     <meta name="description" content="AURA מציעה בניית אתרים, פיתוח אפליקציות ומיתוג דיגיטלי לעסקים שרוצים להוביל. עיצוב מודרני, טכנולוגיה עילית ונגישות מלאה.">
-    <meta name="keywords" content="בניית אתרים, פיתוח תוכנה, עיצוב UI/UX, נגישות אתרים, דף נחיתה לעסק, AURA">
-    <meta name="author" content="AURA Digital">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://aura-demo.co.il/">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aura-demo.co.il/">
-    <meta property="og:title" content="AURA | פתרונות דיגיטליים מתקדמים">
-    <meta property="og:description" content="הפכו את העסק שלכם למותג דיגיטלי מוביל. עיצוב, פיתוח ואסטרטגיה ברמה הגבוהה ביותר.">
-    <meta property="og:image" content="https://aura-demo.co.il/assets/img/og-image.jpg">
-    <meta property="og:locale" content="he_IL">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://aura-demo.co.il/">
-    <meta property="twitter:title" content="AURA | פתרונות דיגיטליים מתקדמים">
-    <meta property="twitter:description" content="הפכו את העסק שלכם למותג דיגיטלי מוביל.">
-    <meta property="twitter:image" content="https://aura-demo.co.il/assets/img/og-image.jpg">
-
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-
-    <!-- CSS (Tailwind via CDN for demo speed, usually built via PostCSS) -->
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -54,188 +28,168 @@
         }
     </script>
     <style>
-        /* Custom Accessibility Focus Styles */
-        *:focus-visible {
-            outline: 3px solid #fbbf24; /* Amber-400 for high visibility */
-            outline-offset: 2px;
-        }
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: #000;
-            color: white;
-            padding: 8px;
-            z-index: 100;
-            transition: top 0.3s;
-        }
+        *:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+        .skip-link { position: absolute; top: -40px; left: 0; background: #000; color: white; padding: 8px; z-index: 100; transition: top 0.3s; }
         .skip-link:focus { top: 0; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
-
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "AURA Digital",
-      "image": "https://aura-demo.co.il/assets/img/logo.png",
-      "url": "https://aura-demo.co.il",
-      "telephone": "+972-55-720-9518",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "רוטשילד 1",
-        "addressLocality": "תל אביב",
-        "postalCode": "66881",
-        "addressCountry": "IL"
-      },
-      "priceRange": "$$$",
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      }
-    }
-    </script>
 </head>
-<body class="bg-slate-900 text-slate-50 font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-slate-900 text-slate-50 font-sans antialiased selection:bg-brand-500 selection:text-white overflow-x-hidden">
 
-    <!-- Skip Link for Keyboard Users -->
-    <a href="#main-content" class="skip-link">דלג לתוכן המרכזי</a>
-
-    <!-- Accessibility Bar -->
-    <div id="a11y-bar" class="hidden bg-white text-black p-2 text-sm border-b justify-center gap-4" role="region" aria-label="כלי נגישות">
-        <button onclick="document.body.classList.toggle('text-lg')" class="hover:underline font-bold">A+ הגדל טקסט</button>
-        <button onclick="document.documentElement.classList.toggle('grayscale')" class="hover:underline font-bold">שחור לבן</button>
-        <button onclick="document.body.classList.toggle('contrast-more')" class="hover:underline font-bold">ניגודיות גבוהה</button>
-    </div>
+    <!-- Accessibility Skip Link -->
+    <a href="#main" class="skip-link focus:top-0 focus:z-[100]">דלג לתוכן המרכזי</a>
 
     <!-- Header -->
-    <header class="fixed w-full top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 transition-all duration-300" id="header">
+    <header class="fixed w-full top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800" data-aos="fade-down">
         <div class="container mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="/" class="text-2xl font-black tracking-tighter text-white" aria-label="AURA דף הבית">
+            <a href="/" class="text-2xl font-black tracking-tighter text-white">
                 AURA<span class="text-brand-500">.</span>
             </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex gap-8" aria-label="תפריט ראשי">
-                <a href="#services" class="text-slate-300 hover:text-white font-medium transition-colors">שירותים</a>
-                <a href="#work" class="text-slate-300 hover:text-white font-medium transition-colors">עבודות</a>
-                <a href="#about" class="text-slate-300 hover:text-white font-medium transition-colors">אודות</a>
+            <nav class="hidden md:flex gap-8">
+                <a href="#services" class="hover:text-brand-500 transition-colors">שירותים</a>
+                <a href="#work" class="hover:text-brand-500 transition-colors">פרויקטים</a>
+                <a href="#about" class="hover:text-brand-500 transition-colors">מי אנחנו</a>
             </nav>
-
-            <!-- Actions -->
-            <div class="flex items-center gap-4">
-                <button aria-label="פתח תפריט נגישות" onclick="document.getElementById('a11y-bar').classList.toggle('hidden')" class="p-2 text-slate-400 hover:text-white transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                </button>
-                <a href="#contact" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-brand-600 hover:bg-brand-500 rounded-full transition-all focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-brand-500">
-                    צור קשר
-                </a>
-            </div>
+            <a href="#contact" class="px-6 py-2 text-sm font-bold bg-brand-600 rounded-full hover:bg-brand-500 transition-all">
+                בוא נדבר
+            </a>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main id="main-content" class="pt-20">
+    <main id="main" class="pt-20">
         
         <!-- Hero Section -->
-        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-            <!-- Background Gradients -->
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px] -z-10"></div>
-            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] -z-10"></div>
-
+        <section class="min-h-[90vh] flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-[url('assets/img/hero-bg.jpg')] bg-cover bg-center opacity-20"></div>
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px]"></div>
+            
             <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight">
-                    הופכים רעיונות<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-500">למציאות דיגיטלית</span>
+                <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight" data-aos="zoom-in" data-aos-duration="1000">
+                    DIGITAL<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-500">FUTURE</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    אנחנו ב-AURA בונים מוצרים דיגיטליים שמשלבים טכנולוגיה עילית, עיצוב פורץ דרך וחווית משתמש נגישה לכולם.
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">
+                    אנחנו מעצבים את המחר של המותג שלך. שילוב מדויק של אסטרטגיה, עיצוב וטכנולוגיה.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#contact" class="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
-                        התחל פרויקט חדש
-                    </a>
-                    <a href="#work" class="px-8 py-4 border border-slate-700 rounded-full font-bold hover:bg-slate-800 transition-colors">
-                        ראה עבודות שלנו
-                    </a>
+                <div class="flex justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#work" class="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">ראה עבודות</a>
                 </div>
             </div>
         </section>
 
-        <!-- Services Grid (Semantic HTML) -->
-        <section id="services" class="py-24 bg-slate-800/50">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">השירותים שלנו</h2>
-                    <div class="w-20 h-1 bg-brand-500 mx-auto rounded-full"></div>
+        <!-- About Section (Expanded) -->
+        <section id="about" class="py-24 bg-slate-800/30">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="צוות AURA" class="rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition duration-700">
                 </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Service 1 -->
-                    <article class="bg-slate-900 border border-slate-700 p-8 rounded-2xl hover:border-brand-500 transition-colors group">
-                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-500 transition-colors">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">פיתוח ווב ואפליקציות</h3>
-                        <p class="text-slate-400">בניית אתרים מהירים בטירוף (SSR/SSG), אפליקציות React Native ודשבורדים מורכבים. קוד נקי, סקיילבילי ומאובטח.</p>
-                    </article>
-
-                    <!-- Service 2 -->
-                    <article class="bg-slate-900 border border-slate-700 p-8 rounded-2xl hover:border-brand-500 transition-colors group">
-                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-500 transition-colors">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">עיצוב חווית משתמש (UI/UX)</h3>
-                        <p class="text-slate-400">אנחנו לא רק מעצבים יפה, אנחנו מעצבים חכם. מחקר משתמשים, אבות טיפוס, וממשקים שמרגישים טבעי.</p>
-                    </article>
-
-                    <!-- Service 3 -->
-                    <article class="bg-slate-900 border border-slate-700 p-8 rounded-2xl hover:border-brand-500 transition-colors group">
-                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-500 transition-colors">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">קידום ואופטימיזציה (SEO)</h3>
-                        <p class="text-slate-400">אתר יפה לא שווה כלום אם לא מוצאים אותו. אנחנו דואגים שתהיו ראשונים בגוגל עם קוד סמנטי וביצועי ליבה (Core Web Vitals).</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Accessibility Statement Section -->
-        <section class="py-16 border-t border-slate-800">
-            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div>
-                    <h3 class="text-2xl font-bold mb-2">מחויבים לנגישות דיגיטלית</h3>
-                    <p class="text-slate-400 max-w-xl">
-                        האתר נבנה בהתאם לתקן WCAG 2.1 ברמה AA. אנחנו מאמינים שהאינטרנט צריך להיות פתוח לכולם, ללא קשר למגבלה או טכנולוגיה מסייעת.
+                <div data-aos="fade-left">
+                    <h2 class="text-4xl font-bold mb-6">מי אנחנו?</h2>
+                    <p class="text-slate-400 text-lg mb-6 leading-relaxed">
+                        AURA הוקמה בשנת 2024 מתוך תשוקה אחת פשוטה: ליצור חוויות דיגיטליות שלא ניתן להתעלם מהן.
                     </p>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        אנחנו לא סוכנות רגילה. אנחנו שותפים לדרך. הצוות שלנו מורכב ממפתחים, מעצבים ואסטרטגים שחיים ונושמים את הרשת. אנחנו מאמינים שקוד נקי הוא אמנות, ועיצוב מדויק הוא מדע.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <span class="text-brand-500 text-xl">✓</span>
+                            <span>מומחיות בטכנולוגיות WEB מתקדמות</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-brand-500 text-xl">✓</span>
+                            <span>ליווי צמוד משלב הרעיון ועד ההשקה</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-brand-500 text-xl">✓</span>
+                            <span>פוקוס על תוצאות עסקיות והחזר השקעה (ROI)</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex items-center gap-4 text-3xl opacity-50 grayscale hover:grayscale-0 transition-all">
-                    <span title="תואם קורא מסך">🗣️</span>
-                    <span title="ניווט מקלדת מלא">⌨️</span>
-                    <span title="ניגודיות צבעים">👁️</span>
+            </div>
+        </section>
+
+        <!-- Portfolio Section (Dynamic Gallery) -->
+        <section id="work" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold mb-4">נבחרת הפרויקטים</h2>
+                    <p class="text-slate-400">הצצה קטנה למה שאנחנו יודעים לעשות</p>
                 </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="דשבורד פיננסי על מסך לפטופ" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <h3 class="text-2xl font-bold mb-2">FinTech App</h3>
+                            <p class="text-brand-500 font-medium">פיתוח דשבורד פיננסי</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=2070&auto=format&fit=crop" alt="ממשק חנות אלקטרונית מודרני" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <h3 class="text-2xl font-bold mb-2">Neon Commerce</h3>
+                            <p class="text-brand-500 font-medium">חנות אופנה דיגיטלית</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="קוד אבטחת סייבר על מסך" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <h3 class="text-2xl font-bold mb-2">Cyber Security</h3>
+                            <p class="text-brand-500 font-medium">אתר תדמית לחברת סייבר</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-slate-900 border-t border-slate-800">
+            <div class="container mx-auto px-6 max-w-2xl text-center" data-aos="zoom-in-up">
+                <h2 class="text-4xl font-bold mb-8">מוכנים להתחיל?</h2>
+                <p class="text-slate-400 mb-10">הפרויקט הבא שלנו יכול להיות המותג שלך. השאירו פרטים ונחזור בהקדם.</p>
+                
+                <form class="space-y-4 text-right">
+                    <label for="name" class="sr-only">שם מלא</label>
+                    <input type="text" id="name" name="name" placeholder="שם מלא" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition">
+                    
+                    <label for="email" class="sr-only">אימייל</label>
+                    <input type="email" id="email" name="email" placeholder="אימייל" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition">
+                    
+                    <label for="message" class="sr-only">הודעה</label>
+                    <textarea id="message" name="message" rows="4" placeholder="ספר לנו על הפרויקט..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition"></textarea>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 p-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-brand-500/20 transition transform hover:-translate-y-1">
+                        שלח הודעה 🚀
+                    </button>
+                </form>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 py-12 border-t border-slate-900">
-        <div class="container mx-auto px-6 text-center text-slate-500 text-sm">
-            <p class="mb-4">&copy; 2026 AURA Digital. כל הזכויות שמורות.</p>
-            <nav class="flex justify-center gap-6" aria-label="קישורים תחתונים">
-                <a href="/accessibility" class="hover:text-white">הצהרת נגישות</a>
-                <a href="/privacy" class="hover:text-white">מדיניות פרטיות</a>
-                <a href="/sitemap.xml" class="hover:text-white">מפת אתר</a>
-            </nav>
-        </div>
+    <footer class="bg-black py-8 text-center text-slate-600 text-sm">
+        <p>&copy; 2026 AURA Digital. Built by Boogie.</p>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+        });
+    </script>
 </body>
 </html>
