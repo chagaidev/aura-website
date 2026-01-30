@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="AURA - Digital Solutions for Enterprise">
+    <title>AURA | Digital Future</title>
+
+    <!-- PWA & SEO -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png">
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     
-    <!-- SEO Meta Tags -->
-    <title>AURA | פתרונות דיגיטליים מתקדמים לעסקים</title>
-    <meta name="description" content="AURA מציעה בניית אתרים, פיתוח אפליקציות ומיתוג דיגיטלי לעסקים שרוצים להוביל. עיצוב מודרני, טכנולוגיה עילית ונגישות מלאה.">
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- CSS -->
+    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Heebo', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Heebo', 'sans-serif'],
+                        en: ['Inter', 'sans-serif']
+                    },
                     colors: {
                         brand: { 500: '#3b82f6', 600: '#2563eb', 900: '#0f172a' }
                     }
@@ -27,170 +36,283 @@
             }
         }
     </script>
+
     <style>
-        *:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
-        .skip-link { position: absolute; top: -40px; left: 0; background: #000; color: white; padding: 8px; z-index: 100; transition: top 0.3s; }
-        .skip-link:focus { top: 0; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); }
+        .gradient-text { background-clip: text; -webkit-background-clip: text; color: transparent; background-image: linear-gradient(to right, #3b82f6, #a855f7); }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-50 font-sans antialiased selection:bg-brand-500 selection:text-white overflow-x-hidden">
 
-    <!-- Accessibility Skip Link -->
-    <a href="#main" class="skip-link focus:top-0 focus:z-[100]">דלג לתוכן המרכזי</a>
+<body class="bg-slate-900 text-slate-50 antialiased overflow-x-hidden" 
+      x-data="app()" 
+      :dir="lang === 'he' ? 'rtl' : 'ltr'"
+      :class="lang === 'he' ? 'font-sans' : 'font-en'">
+
+    <!-- Skip Link (A11y) -->
+    <a href="#main" class="fixed top-0 left-0 -translate-y-full focus:translate-y-0 bg-brand-600 text-white p-2 z-[100] transition-transform">
+        <span x-text="t.skip_content"></span>
+    </a>
 
     <!-- Header -->
-    <header class="fixed w-full top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800" data-aos="fade-down">
-        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/" class="text-2xl font-black tracking-tighter text-white">
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-white/5"
+            :class="scrolled ? 'glass shadow-lg py-2' : 'bg-transparent py-4'">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-black tracking-tighter">
                 AURA<span class="text-brand-500">.</span>
             </a>
-            <nav class="hidden md:flex gap-8">
-                <a href="#services" class="hover:text-brand-500 transition-colors">שירותים</a>
-                <a href="#work" class="hover:text-brand-500 transition-colors">פרויקטים</a>
-                <a href="#about" class="hover:text-brand-500 transition-colors">מי אנחנו</a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#services" class="hover:text-brand-500 transition" x-text="t.nav_services"></a>
+                <a href="#work" class="hover:text-brand-500 transition" x-text="t.nav_work"></a>
+                <a href="#about" class="hover:text-brand-500 transition" x-text="t.nav_about"></a>
+                
+                <!-- Lang Switcher -->
+                <button @click="toggleLang()" class="flex items-center gap-1 text-sm font-bold opacity-70 hover:opacity-100 uppercase border border-slate-600 px-2 py-1 rounded">
+                    <span x-text="lang === 'he' ? 'EN' : 'עב'"></span>
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                </button>
+
+                <a href="#contact" class="px-6 py-2 bg-brand-600 rounded-full font-bold text-sm hover:bg-brand-500 transition shadow-lg shadow-brand-500/20" x-text="t.cta_talk"></a>
             </nav>
-            <a href="#contact" class="px-6 py-2 text-sm font-bold bg-brand-600 rounded-full hover:bg-brand-500 transition-all">
-                בוא נדבר
-            </a>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-2xl" :aria-label="t.menu_toggle">
+                <span x-show="!mobileOpen">☰</span>
+                <span x-show="mobileOpen">✕</span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileOpen" x-collapse class="md:hidden glass border-t border-white/10">
+            <nav class="flex flex-col p-6 gap-4 text-center">
+                <a @click="mobileOpen = false" href="#services" x-text="t.nav_services"></a>
+                <a @click="mobileOpen = false" href="#work" x-text="t.nav_work"></a>
+                <a @click="mobileOpen = false" href="#about" x-text="t.nav_about"></a>
+                <a @click="mobileOpen = false" href="#contact" class="text-brand-500 font-bold" x-text="t.cta_talk"></a>
+                <hr class="border-white/10">
+                <button @click="toggleLang()" class="text-sm opacity-70">
+                    <span x-text="lang === 'he' ? 'Switch to English' : 'החלף לעברית'"></span>
+                </button>
+            </nav>
         </div>
     </header>
 
-    <main id="main" class="pt-20">
-        
-        <!-- Hero Section -->
-        <section class="min-h-[90vh] flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-[url('assets/img/hero-bg.jpg')] bg-cover bg-center opacity-20"></div>
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px]"></div>
-            
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight" data-aos="zoom-in" data-aos-duration="1000">
-                    DIGITAL<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-500">FUTURE</span>
+    <main id="main">
+        <!-- Hero -->
+        <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+            <!-- Dynamic BG -->
+            <div class="absolute inset-0 bg-[url('assets/img/hero-bg.jpg')] bg-cover bg-center opacity-30 transition-opacity duration-1000"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"></div>
+
+            <div class="container mx-auto px-6 relative z-10 text-center pt-20">
+                <div class="inline-block px-3 py-1 mb-6 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs tracking-widest uppercase font-bold" data-aos="fade-down">
+                    <span x-text="t.hero_badge"></span>
+                </div>
+                <h1 class="text-5xl md:text-8xl font-black leading-tight mb-6" data-aos="zoom-in">
+                    <span x-text="t.hero_title_1"></span><br>
+                    <span class="gradient-text" x-text="t.hero_title_2"></span>
                 </h1>
-                <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">
-                    אנחנו מעצבים את המחר של המותג שלך. שילוב מדויק של אסטרטגיה, עיצוב וטכנולוגיה.
-                </p>
-                <div class="flex justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
-                    <a href="#work" class="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">ראה עבודות</a>
+                <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="200" x-text="t.hero_desc"></p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#contact" class="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:scale-105 transition" x-text="t.cta_primary"></a>
+                    <a href="#work" class="px-8 py-4 border border-slate-600 rounded-full font-bold hover:bg-slate-800 transition" x-text="t.cta_secondary"></a>
                 </div>
             </div>
         </section>
 
-        <!-- About Section (Expanded) -->
-        <section id="about" class="py-24 bg-slate-800/30">
-            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="צוות AURA" class="rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+        <!-- Services -->
+        <section id="services" class="py-24 bg-slate-800/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black mb-4" x-text="t.services_title"></h2>
                 </div>
-                <div data-aos="fade-left">
-                    <h2 class="text-4xl font-bold mb-6">מי אנחנו?</h2>
-                    <p class="text-slate-400 text-lg mb-6 leading-relaxed">
-                        AURA הוקמה בשנת 2024 מתוך תשוקה אחת פשוטה: ליצור חוויות דיגיטליות שלא ניתן להתעלם מהן.
-                    </p>
-                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
-                        אנחנו לא סוכנות רגילה. אנחנו שותפים לדרך. הצוות שלנו מורכב ממפתחים, מעצבים ואסטרטגים שחיים ונושמים את הרשת. אנחנו מאמינים שקוד נקי הוא אמנות, ועיצוב מדויק הוא מדע.
-                    </p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-3">
-                            <span class="text-brand-500 text-xl">✓</span>
-                            <span>מומחיות בטכנולוגיות WEB מתקדמות</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-brand-500 text-xl">✓</span>
-                            <span>ליווי צמוד משלב הרעיון ועד ההשקה</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-brand-500 text-xl">✓</span>
-                            <span>פוקוס על תוצאות עסקיות והחזר השקעה (ROI)</span>
-                        </li>
-                    </ul>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <template x-for="service in t.services_list">
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-brand-500 transition group" data-aos="fade-up">
+                            <div class="text-4xl mb-6 group-hover:scale-110 transition duration-300" x-text="service.icon"></div>
+                            <h3 class="text-xl font-bold mb-3" x-text="service.title"></h3>
+                            <p class="text-slate-400" x-text="service.desc"></p>
+                        </div>
+                    </template>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Section (Dynamic Gallery) -->
+        <!-- Portfolio -->
         <section id="work" class="py-24">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold mb-4">נבחרת הפרויקטים</h2>
-                    <p class="text-slate-400">הצצה קטנה למה שאנחנו יודעים לעשות</p>
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-4xl font-black mb-2" x-text="t.work_title"></h2>
+                        <p class="text-slate-400" x-text="t.work_subtitle"></p>
+                    </div>
                 </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="דשבורד פיננסי על מסך לפטופ" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                            <h3 class="text-2xl font-bold mb-2">FinTech App</h3>
-                            <p class="text-brand-500 font-medium">פיתוח דשבורד פיננסי</p>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="group relative aspect-video bg-slate-800 rounded-xl overflow-hidden cursor-pointer" data-aos="fade-up">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" class="object-cover w-full h-full opacity-60 group-hover:opacity-40 group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition">
+                            <h3 class="text-xl font-bold">FinTech Dash</h3>
+                            <p class="text-brand-400 text-sm">React • Node.js</p>
                         </div>
                     </div>
-
-                    <!-- Project 2 -->
-                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left" data-aos-delay="100">
-                        <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=2070&auto=format&fit=crop" alt="ממשק חנות אלקטרונית מודרני" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                            <h3 class="text-2xl font-bold mb-2">Neon Commerce</h3>
-                            <p class="text-brand-500 font-medium">חנות אופנה דיגיטלית</p>
+                    <div class="group relative aspect-video bg-slate-800 rounded-xl overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800" class="object-cover w-full h-full opacity-60 group-hover:opacity-40 group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition">
+                            <h3 class="text-xl font-bold">E-Commerce AI</h3>
+                            <p class="text-brand-400 text-sm">Shopify • Python</p>
                         </div>
                     </div>
-
-                    <!-- Project 3 -->
-                    <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" data-aos="flip-left" data-aos-delay="200">
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="קוד אבטחת סייבר על מסך" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 group-hover:opacity-40">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                            <h3 class="text-2xl font-bold mb-2">Cyber Security</h3>
-                            <p class="text-brand-500 font-medium">אתר תדמית לחברת סייבר</p>
+                    <div class="group relative aspect-video bg-slate-800 rounded-xl overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800" class="object-cover w-full h-full opacity-60 group-hover:opacity-40 group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition">
+                            <h3 class="text-xl font-bold">CyberGuard</h3>
+                            <p class="text-brand-400 text-sm">Next.js • WebGL</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-slate-900 border-t border-slate-800">
-            <div class="container mx-auto px-6 max-w-2xl text-center" data-aos="zoom-in-up">
-                <h2 class="text-4xl font-bold mb-8">מוכנים להתחיל?</h2>
-                <p class="text-slate-400 mb-10">הפרויקט הבא שלנו יכול להיות המותג שלך. השאירו פרטים ונחזור בהקדם.</p>
+        <!-- Contact (Netlify Forms) -->
+        <section id="contact" class="py-24 bg-gradient-to-b from-slate-900 to-black border-t border-slate-800">
+            <div class="container mx-auto px-6 max-w-xl text-center">
+                <h2 class="text-4xl font-black mb-8" x-text="t.contact_title"></h2>
                 
-                <form class="space-y-4 text-right" name="contact" method="POST" data-netlify="true">
+                <form name="contact" method="POST" data-netlify="true" class="space-y-4 text-start">
                     <input type="hidden" name="form-name" value="contact">
-                    <label for="name" class="sr-only">שם מלא</label>
-                    <input type="text" id="name" name="name" placeholder="שם מלא" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition">
                     
-                    <label for="email" class="sr-only">אימייל</label>
-                    <input type="email" id="email" name="email" placeholder="אימייל" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition">
+                    <div>
+                        <label for="name" class="block text-sm font-medium mb-1 text-slate-400" x-text="t.form_name"></label>
+                        <input type="text" name="name" id="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition">
+                    </div>
                     
-                    <label for="message" class="sr-only">הודעה</label>
-                    <textarea id="message" name="message" rows="4" placeholder="ספר לנו על הפרויקט..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition"></textarea>
-                    
-                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 p-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-brand-500/20 transition transform hover:-translate-y-1">
-                        שלח הודעה 🚀
+                    <div>
+                        <label for="email" class="block text-sm font-medium mb-1 text-slate-400" x-text="t.form_email"></label>
+                        <input type="email" name="email" id="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium mb-1 text-slate-400" x-text="t.form_message"></label>
+                        <textarea name="message" id="message" rows="4" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-4 rounded-lg transition transform active:scale-95 shadow-lg shadow-brand-500/25">
+                        <span x-text="t.form_submit"></span>
                     </button>
                 </form>
             </div>
         </section>
 
+        <!-- Footer -->
+        <footer class="py-10 border-t border-white/10 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 AURA Digital. <span x-text="t.footer_rights"></span></p>
+        </footer>
+
+        <!-- Back to Top -->
+        <button @click="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                x-show="scrolled" 
+                x-transition
+                class="fixed bottom-6 left-6 z-40 bg-white text-black p-3 rounded-full shadow-xl hover:scale-110 transition"
+                :aria-label="t.back_to_top">
+            ↑
+        </button>
+
     </main>
 
-    <footer class="bg-black py-8 text-center text-slate-600 text-sm">
-        <p>&copy; 2026 AURA Digital. Built by Boogie.</p>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- App Logic -->
     <script>
-        AOS.init({
-            once: true,
-            offset: 100,
-            duration: 800,
-        });
+        // Init AOS
+        AOS.init({ once: true, offset: 50, duration: 800 });
+
+        function app() {
+            return {
+                lang: 'he',
+                mobileOpen: false,
+                scrolled: false,
+                
+                init() {
+                    window.addEventListener('scroll', () => {
+                        this.scrolled = window.scrollY > 50;
+                    });
+                },
+
+                toggleLang() {
+                    this.lang = this.lang === 'he' ? 'en' : 'he';
+                    // Re-init AOS on lang change for RTL/LTR adjustment
+                    setTimeout(() => AOS.refresh(), 100);
+                },
+
+                get t() {
+                    const dict = {
+                        he: {
+                            skip_content: 'דלג לתוכן המרכזי',
+                            nav_services: 'שירותים',
+                            nav_work: 'פרויקטים',
+                            nav_about: 'אודות',
+                            cta_talk: 'דבר איתנו',
+                            menu_toggle: 'פתח תפריט',
+                            hero_badge: 'העתיד הדיגיטלי',
+                            hero_title_1: 'בונים חוויות',
+                            hero_title_2: 'שמשנות את החוקים',
+                            hero_desc: 'אנחנו ב-AURA משלבים עיצוב עילית, קוד מדויק ואסטרטגיה עסקית כדי להפוך את המותג שלך למוביל שוק.',
+                            cta_primary: 'בוא נתחיל',
+                            cta_secondary: 'תיק עבודות',
+                            services_title: 'המומחיות שלנו',
+                            services_list: [
+                                {icon: '💻', title: 'פיתוח Full Stack', desc: 'מערכות מורכבות, דשבורדים ואתרי תדמית סופר-מהירים.'},
+                                {icon: '🎨', title: 'עיצוב UI/UX', desc: 'ממשקים שמשתמשים מתאהבים בהם ממבט ראשון.'},
+                                {icon: '🚀', title: 'צמיחה ו-SEO', desc: 'אופטימיזציה למנועי חיפוש וביצועים מקסימליים.'}
+                            ],
+                            work_title: 'עבודות אחרונות',
+                            work_subtitle: 'איכות ללא פשרות',
+                            contact_title: 'מוכנים להמריא?',
+                            form_name: 'שם מלא',
+                            form_email: 'כתובת אימייל',
+                            form_message: 'על הפרויקט',
+                            form_submit: 'שלח פרטים 🚀',
+                            footer_rights: 'כל הזכויות שמורות.',
+                            back_to_top: 'חזור למעלה'
+                        },
+                        en: {
+                            skip_content: 'Skip to main content',
+                            nav_services: 'Services',
+                            nav_work: 'Work',
+                            nav_about: 'About',
+                            cta_talk: 'Let\'s Talk',
+                            menu_toggle: 'Open Menu',
+                            hero_badge: 'The Digital Future',
+                            hero_title_1: 'Building Experiences',
+                            hero_title_2: 'That Break The Rules',
+                            hero_desc: 'At AURA, we blend elite design, precise code, and business strategy to turn your brand into a market leader.',
+                            cta_primary: 'Get Started',
+                            cta_secondary: 'View Work',
+                            services_title: 'Our Expertise',
+                            services_list: [
+                                {icon: '💻', title: 'Full Stack Dev', desc: 'Complex systems, dashboards, and blazing fast sites.'},
+                                {icon: '🎨', title: 'UI/UX Design', desc: 'Interfaces that users fall in love with at first sight.'},
+                                {icon: '🚀', title: 'Growth & SEO', desc: 'Search engine optimization and maximum performance.'}
+                            ],
+                            work_title: 'Recent Work',
+                            work_subtitle: 'Quality without compromise',
+                            contact_title: 'Ready to Launch?',
+                            form_name: 'Full Name',
+                            form_email: 'Email Address',
+                            form_message: 'About the Project',
+                            form_submit: 'Send Message 🚀',
+                            footer_rights: 'All rights reserved.',
+                            back_to_top: 'Back to Top'
+                        }
+                    };
+                    return dict[this.lang];
+                }
+            }
+        }
     </script>
 </body>
 </html>
