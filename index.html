@@ -159,7 +159,8 @@
                 <h2 class="text-4xl font-bold mb-8">מוכנים להתחיל?</h2>
                 <p class="text-slate-400 mb-10">הפרויקט הבא שלנו יכול להיות המותג שלך. השאירו פרטים ונחזור בהקדם.</p>
                 
-                <form class="space-y-4 text-right">
+                <form class="space-y-4 text-right" name="contact" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact">
                     <label for="name" class="sr-only">שם מלא</label>
                     <input type="text" id="name" name="name" placeholder="שם מלא" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:border-brand-500 focus:outline-none transition">
                     
