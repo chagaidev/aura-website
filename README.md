@@ -6,7 +6,7 @@
 
 A high-performance, accessible, and modern landing page for a digital agency. Built with a focus on speed, SEO, and developer experience.
 
-🔗 **Live Demo:** [https://aura-boogie-demo-v1.netlify.app](https://aura-boogie-demo-v1.netlify.app)
+🔗 **Live Demo:** [https://aura-web-site.netlify.app](https://aura-web-site.netlify.app)
 
 ## 🚀 Features
 
@@ -51,5 +51,5 @@ aura-website/
 
 ## 📬 Contact
 
-Built by [AURA Digital](https://aura-boogie-demo-v1.netlify.app).
+Built by [AURA Digital](https://aura-web-site.netlify.app).
 For inquiries, use the contact form on the live site.
